@@ -2,31 +2,30 @@ import { useEffect, useState } from "react";
 import { auth } from "../firebase";
 
 interface User {
-  uid: string;
-  //and other fields 
+    uid: string;
 }
 
 interface AuthHookResult {
-  user: User | null;
-  isLoggedIn: boolean;
+    user: User | null;
+    isLoggedIn: boolean;
 }
 
 const useAuth = (): AuthHookResult => {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+    const [user, setUser] = useState<User | null>(null);
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
-  useEffect(() => {
+    useEffect(() => {
 
-    auth.onAuthStateChanged((user) => {
-    setIsLoggedIn(user && user.uid ? true : false);
-    setUser(user);
+        auth.onAuthStateChanged((user) => {
+            setIsLoggedIn(user && user.uid ? true : false);
+            setUser(user);
+        });
+
     });
 
-    });
 
+    return { user, isLoggedIn };
 
-   return { user, isLoggedIn };
-
-    };
+};
 
 export default useAuth;
