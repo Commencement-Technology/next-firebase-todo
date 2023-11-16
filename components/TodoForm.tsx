@@ -2,7 +2,7 @@
 import { Button, TextField } from '@mui/material';
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { db } from '../firebase';
+import { db } from '../constants/firebase';
 import { TodoContext } from '@/app/TodoContext';
 
 

@@ -5,7 +5,7 @@ import React, { useContext } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 import { deleteDoc, doc, serverTimestamp, updateDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { db } from '../constants/firebase';
 import { TodoContext } from '@/app/TodoContext';
 import theme from '@/app/theme';
 interface Todo {
