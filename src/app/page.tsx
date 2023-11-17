@@ -41,9 +41,9 @@ export default function Home() {
   return (
     // @ts-ignore
     <TodoContext.Provider value={{ showAlert ,todos,setTodos} as TodoContextType} >
-      <Container sx={{backgroundColor:'black',padding:6,margin:0}} maxWidth={false} disableGutters>
+      <Container sx={{backgroundColor:'white',padding:6,margin:0}} maxWidth={false} disableGutters>
         
-      <StyledContainer maxWidth="md">
+      <StyledContainer maxWidth="sm">
         <TOdoForm />
         <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}
         anchorOrigin={{vertical:'bottom',horizontal:'center'}}>
