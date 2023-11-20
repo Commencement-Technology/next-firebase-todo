@@ -16,7 +16,7 @@ import React, { useContext } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import { deleteDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore";
-import { db } from "../constants/firebase";
+import { db } from "../utils/firebase";
 import { TodoContext } from "@/app/TodoContext";
 import theme from "@/app/theme";
 interface Todo {
@@ -24,10 +24,10 @@ interface Todo {
   title: string;
   description: string;
   status: boolean;
-  timestamp?: number; // optional
+  timestamp?: number; 
 }
 
-const Todostyle = ({ userId, timestamp, title, description, status }: Todo) => {
+const Todo = ({ userId, timestamp, title, description, status }: Todo) => {
   // @ts-ignore
   const { showAlert, todos, setTodos } = useContext(TodoContext);
 
@@ -60,7 +60,6 @@ const Todostyle = ({ userId, timestamp, title, description, status }: Todo) => {
         sx={{
           mt: 3,
           boxshadow: 8 * 4,
-        //   backgroundColor: status ? "#E32929" : "white",
           textDecoration: status ? "line-through" : "none",
           borderBottom: "1px solid #A8A7A5",
           borderRadius: 2,
@@ -79,11 +78,7 @@ const Todostyle = ({ userId, timestamp, title, description, status }: Todo) => {
               key={userId}
               checked={status}
               onChange={oncheckbox}
-            //   sx={{
-            //     "& .MuiSvgIcon-root": {
-            //       fill: "white",
-            //     },
-            //   }}
+        
             />
           </>
         }
@@ -105,7 +100,6 @@ const Todostyle = ({ userId, timestamp, title, description, status }: Todo) => {
       <Card
         sx={{
           minWidth: 275,
-        //   backgroundColor: status ? "#E32929" : "white",
           textDecoration: status ? "line-through" : "none",
         }}
       >
@@ -137,4 +131,4 @@ const Todostyle = ({ userId, timestamp, title, description, status }: Todo) => {
   );
 };
 
-export default Todostyle;
+export default Todo;

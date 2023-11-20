@@ -8,7 +8,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { db } from "../constants/firebase";
+import { db } from "../utils/firebase";
 import { TodoContext } from "@/app/TodoContext";
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -76,7 +76,7 @@ const TodoForm: React.FC = () => {
     };
   }, []);
 
-  //"#4B4B4A"
+ 
 
   return (
     <>
@@ -135,7 +135,7 @@ const TodoForm: React.FC = () => {
       style={{ backgroundColor: "white" }}
       ref={inputAreaRef}
     >
-      {/* <pre>{JSON.stringify(todos)}</pre> */}
+    
       <TextField
         fullWidth
         label="title"

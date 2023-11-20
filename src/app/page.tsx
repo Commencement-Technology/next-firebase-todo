@@ -1,63 +1,83 @@
-"use client"
-import { Alert, Container, Snackbar } from '@mui/material'
+"use client";
+import { Alert, Container, Snackbar } from "@mui/material";
 
-import TOdoList from '../../components/TodoList'
-import TOdoForm from '../../components/TodoForm'
-import { useState } from 'react';
-import { TodoContext } from './TodoContext';
-import { styled } from '@mui/system';
+import TodoList from "../../components/TodoList";
+import TodoForm from "../../components/TodoForm";
+import { useState } from "react";
+import { TodoContext } from "./TodoContext";
+import { styled } from "@mui/system";
 
-
-const StyledContainer = styled(Container)({
- 
-  borderRadius: 8,
-  
-});
-
+interface TodoContextType {
+  showAlert: (
+    type: "success" | "error" | "info" | "warning",
+    message: string
+  ) => void;
+  todos: { title: string; description: string };
+  setTodos: React.Dispatch<
+    React.SetStateAction<{ title: string; description: string }>
+  >;
+}
 
 export default function Home() {
   const [open, setOpen] = useState(false);
-  const [alertType, setAlertType] = useState<'success' | 'error' | 'info' | 'warning'>('success');
+  const [alertType, setAlertType] = useState<
+    "success" | "error" | "info" | "warning"
+  >("success");
   const [alertMessage, setAlertMessage] = useState("");
-  const[todos,setTodos]=useState({title:'',description:''})
+  const [todos, setTodos] = useState({ title: "", description: "" });
 
-  interface TodoContextType {
-    showAlert: (type: 'success' | 'error' | 'info' | 'warning', message: string) => void;
-  }
-
-  const showAlert = (type: 'success' | 'error' | 'info' | 'warning', message: string): void => {
+  const showAlert = (
+    type: "success" | "error" | "info" | "warning",
+    message: string
+  ): void => {
     setAlertType(type);
     setAlertMessage(message);
     setOpen(true);
   };
 
-  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
       return;
     }
 
     setOpen(false);
   };
+
+  const StyledContainer = styled(Container)({
+    borderRadius: 8,
+  });
   return (
-    // @ts-ignore
-    <TodoContext.Provider value={{ showAlert ,todos,setTodos} as TodoContextType} >
-      <Container sx={{backgroundColor:'white',padding:6,margin:0}} maxWidth={false} disableGutters>
-        
-      <StyledContainer maxWidth="sm">
-        <TOdoForm />
-        <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}
-        anchorOrigin={{vertical:'bottom',horizontal:'center'}}>
-          <Alert onClose={handleClose} severity={alertType} sx={{ width: '100%' }}>
-            {alertMessage}
-          </Alert>
-        </Snackbar>
-        <TOdoList />
-      </StyledContainer>
+    <TodoContext.Provider
+      // @ts-ignore
+      value={{ showAlert, todos, setTodos } as TodoContextType}
+    >
+      <Container
+        sx={{ backgroundColor: "white", padding: 6, margin: 0 }}
+        maxWidth={false}
+        disableGutters
+      >
+        <StyledContainer maxWidth="sm">
+          <TodoForm />
+          <Snackbar
+            open={open}
+            autoHideDuration={4000}
+            onClose={handleClose}
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          >
+            <Alert
+              onClose={handleClose}
+              severity={alertType}
+              sx={{ width: "100%" }}
+            >
+              {alertMessage}
+            </Alert>
+          </Snackbar>
+          <TodoList />
+        </StyledContainer>
       </Container>
     </TodoContext.Provider>
-
-  )
-
+  );
 }
-
-

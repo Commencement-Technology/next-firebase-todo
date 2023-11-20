@@ -1,9 +1,10 @@
 "use client";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { db } from "../constants/firebase";
+import { db } from "../utils/firebase";
 import { Divider, Typography } from "@mui/material";
-import TODOstyle from "./Todo";
+import ToDo from "./Todo";
+
 interface Todo {
   userId: string;
   title: string;
@@ -54,13 +55,12 @@ const TodoList = () => {
 
   const completedTodos = todos.filter((todo) => todo.status === true);
   const uncompletedTodos = todos.filter((todo) => todo.status === false);
-{/* <Typography variant="h4">To-Do</Typography>
-    <Divider sx={{ my: 2, backgroundColor: "#ccc" }} /> */}
+
 
   return (
     <div>
       {uncompletedTodos.map((todo) => (
-        <TODOstyle
+        <ToDo
           key={todo.userId}
           userId={todo.userId}
           title={todo.title}
@@ -76,7 +76,7 @@ const TodoList = () => {
         </>
       )}
       {completedTodos.map((todo) => (
-        <TODOstyle
+        <ToDo
           key={todo.userId}
           userId={todo.userId}
           title={todo.title}
