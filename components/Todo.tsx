@@ -18,16 +18,9 @@ import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import { deleteDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import  db  from "../utils/firebase";
 import { TodoContext } from "@/app/TodoContext";
-import theme from "@/app/theme";
-interface Todo {
-  userId: string;
-  title: string;
-  description: string;
-  status: boolean;
-  timestamp?: number; 
-}
+import TodoInterface from "../interfaces/TodoInterface";
 
-const Todo = ({ userId, timestamp, title, description, status }: Todo) => {
+const Todo = ({ userId, timestamp, title, description, status }: TodoInterface) => {
   // @ts-ignore
   const { showAlert, todos, setTodos } = useContext(TodoContext);
 

@@ -24,6 +24,10 @@ const TodoForm: React.FC = () => {
         await updateDoc(docRef, { ...todos, timestamp: serverTimestamp() });
         showAlert("info", "Todo Updated Successfully");
       } else {
+        if (!todos.title || !todos.description) {
+          showAlert("error", "Please fill all the fields");
+          return;
+        }
         const collectionRef = collection(db, "todos");
         const docref = await addDoc(collectionRef, {
           ...todos,
@@ -41,21 +45,21 @@ const TodoForm: React.FC = () => {
     useEffect(() => {
       console.log("useEffect clicked outside or inside");
        
-        // const checkIfClickedOutside = (e: MouseEvent) => {
+        const checkIfClickedOutside = (e: MouseEvent) => {
           
-        //     if (inputAreaRef.current && !inputAreaRef.current.contains(e.target as Node)) {
-        //         console.log('You clicked outside of me!');
-        //         setTodos({ title: '', description: '' })
-        //     } else {
-        //         console.log('You clicked inside of me!');
-        //     }
-        // }
-        // document.addEventListener("mousedown", checkIfClickedOutside);
+            if (inputAreaRef.current && !inputAreaRef.current.contains(e.target as Node)) {
+                console.log('You clicked outside of me!');
+                setTodos({ title: '', description: '' })
+            } else {
+                console.log('You clicked inside of me!');
+            }
+        }
+        document.addEventListener("mousedown", checkIfClickedOutside);
 
 
-        // return () => {
-        //     document.removeEventListener("mousedown", checkIfClickedOutside);
-        // }
+        return () => {
+            document.removeEventListener("mousedown", checkIfClickedOutside);
+        }
     }, [])
 
 //"#4B4B4A"
@@ -64,7 +68,7 @@ const TodoForm: React.FC = () => {
     return (
         <Container key={"ekfdjsdkasdmlke"} style={{backgroundColor:"white",padding:"10px"}} ref={inputAreaRef} >
           
-            <Typography variant="h4" sx={{color:"#4B4B4A"}}>TO-DO</Typography>
+            <Typography variant="h4" sx={{color:"#4B4B4A",mt:2}}>TO-DO</Typography>
             <Divider sx={{color:"#333131",mt:3,mb:3}}> </Divider>
             <TextField fullWidth label="title" margin='normal' sx={{backgroundColor:"white"}}
                 value={todos.title}
@@ -73,7 +77,7 @@ const TodoForm: React.FC = () => {
                 value={todos.description}
                 onChange={e => setTodos({ ...todos, description: e.target.value })}></TextField>
             <Button onClick={onSubmit} sx={{ mt: 3, mb: 3 }} variant="contained" color="primary">{todos.
-            hasOwnProperty("timestamp")?"UPDATE TODO":"ADD A NEW TODO"}</Button>
+            hasOwnProperty("timestamp")?"UPDATE TODO":"+ NEW TODO"}</Button>
         </Container>
     );
 }

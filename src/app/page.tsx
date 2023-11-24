@@ -1,19 +1,13 @@
 "use client"
 import { Alert, Container, Snackbar } from '@mui/material'
 
-import TOdoList from '../../components/TodoList'
-import TOdoForm from '../../components/TodoForm'
+import TodoList from '../../components/TodoList'
+import TodoForm from '../../components/TodoForm'
 import { useState } from 'react';
 import { TodoContext } from './TodoContext';
 import { styled } from '@mui/system';
 import SideMenu from '../../components/SideMenu';
 
-
-const StyledContainer = styled(Container)({
- 
-  borderRadius: 8,
-  
-});
 
 
 export default function Home() {
@@ -50,18 +44,16 @@ export default function Home() {
   return (
     // @ts-ignore
     <TodoContext.Provider value={{ showAlert ,todos,setTodos} as TodoContextType} >
-      <Container sx={{backgroundColor:'white',padding:6,margin:0}} maxWidth={false} disableGutters>
-      {/* <SideMenu/> */}
-      <StyledContainer maxWidth="sm">
-        <TOdoForm />
+      <Container maxWidth="sm">
+      <SideMenu/>
+        <TodoForm />
         <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}
         anchorOrigin={{vertical:'bottom',horizontal:'center'}}>
           <Alert onClose={handleClose} severity={alertType} sx={{ width: '100%' }}>
             {alertMessage}
           </Alert>
         </Snackbar>
-        <TOdoList />
-      </StyledContainer>
+        <TodoList />
       </Container>
     </TodoContext.Provider>
   );

@@ -2,18 +2,12 @@
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import db  from '../utils/firebase';
-import { Typography } from '@mui/material';
-import TODOstyle from './Todo';
-interface Todo {
-  userId: string;
-  title: string;
-  description: string;
-  status: boolean;
-  timestamp?: number; // optional
-}
+import { Container, Divider, Typography } from '@mui/material';
+import ToDo from './Todo';
+import TodoInterface from '../interfaces/TodoInterface';
 
 const TodoList = () => {
-    const [todo, setTodo] = useState<Todo[]>([]);
+    const [todo, setTodo] = useState<TodoInterface[]>([]);
 
     useEffect(() => {
         const collectionRef = collection(db, 'todos');
@@ -31,7 +25,7 @@ const TodoList = () => {
                     description: doc.data().description,
                     status: doc.data().status,
                     timestamp: doc.data().timestamp?.toDate().getTime(),
-                } as Todo;
+                } as TodoInterface;
             }));
         }, (error) => {
             console.error('Error fetching data:', error);
@@ -40,12 +34,13 @@ const TodoList = () => {
         return unsubscribe;
     }, []);
 
+    const uncompletedtodos= todo.filter(todo => todo.status==false)
+    const completedtodos= todo.filter(todo => todo.status==true)
+
     return (
-        <div>
-            
-            
-            {todo.map((todo) => (
-               <TODOstyle
+        <Container disableGutters>
+           {uncompletedtodos.map((todo) => (
+               <ToDo
                     key={todo.userId}
                     userId={todo.userId}
                     title={todo.title}
@@ -54,7 +49,25 @@ const TodoList = () => {
                     timestamp={todo.timestamp}
                 />
             ))}
-        </div>
+
+            {completedtodos.length>0 && 
+            <>
+            <Typography variant='h5' sx={{mt:4,mb:2}}>Completed Todos</Typography>
+            <Divider sx={{mb:2}}/>
+            </>}
+
+            {completedtodos.map((todo) => (
+               <ToDo
+                    key={todo.userId}
+                    userId={todo.userId}
+                    title={todo.title}
+                    description={todo.description}
+                    status={todo.status}
+                    timestamp={todo.timestamp}
+                />
+            ))}
+        </Container>
+        
     );
 };
 
