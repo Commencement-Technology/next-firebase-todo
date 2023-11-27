@@ -1,22 +1,13 @@
-"use client";
-import { Alert, Container, Snackbar } from "@mui/material";
+"use client"
+import { Alert, Container, Snackbar } from '@mui/material'
 
-import TodoList from "../../components/TodoList";
-import TodoForm from "../../components/TodoForm";
-import { useState } from "react";
-import { TodoContext } from "./TodoContext";
+import TodoList from '../../components/TodoList'
+import TodoForm from '../../components/TodoForm'
+import { useState } from 'react';
+import { TodoContext } from './TodoContext';
+import SideMenu from '../../components/SideMenu';
 
 
-interface TodoContextType {
-  showAlert: (
-    type: "success" | "error" | "info" | "warning",
-    message: string
-  ) => void;
-  todos: { title: string; description: string };
-  setTodos: React.Dispatch<
-    React.SetStateAction<{ title: string; description: string }>
-  >;
-}
 
 export default function Home() {
   const [open, setOpen] = useState(false);
@@ -48,33 +39,18 @@ export default function Home() {
 
 
   return (
-    <TodoContext.Provider
-      // @ts-ignore
-      value={{ showAlert, todos, setTodos } as TodoContextType}
-    >
-      <Container
-        sx={{ backgroundColor: "white", padding: 6, margin: 0 }}
-        maxWidth={false}
-        disableGutters
-      >
-       
-          <TodoForm />
-          <Snackbar
-            open={open}
-            autoHideDuration={4000}
-            onClose={handleClose}
-            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-          >
-            <Alert
-              onClose={handleClose}
-              severity={alertType}
-              sx={{ width: "100%" }}
-            >
-              {alertMessage}
-            </Alert>
-          </Snackbar>
-          <TodoList />
-        
+    // @ts-ignore
+    <TodoContext.Provider value={{ showAlert ,todos,setTodos} as TodoContextType} >
+      <Container maxWidth="sm">
+      <SideMenu/>
+        <TodoForm />
+        <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}
+        anchorOrigin={{vertical:'bottom',horizontal:'center'}}>
+          <Alert onClose={handleClose} severity={alertType} sx={{ width: '100%' }}>
+            {alertMessage}
+          </Alert>
+        </Snackbar>
+        <TodoList />
       </Container>
     </TodoContext.Provider>
   );
