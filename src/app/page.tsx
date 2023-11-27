@@ -1,11 +1,11 @@
 "use client";
 import { Alert, Container, Snackbar } from "@mui/material";
+
 import TodoList from "../../components/TodoList";
 import TodoForm from "../../components/TodoForm";
 import { useState } from "react";
 import { TodoContext } from "./TodoContext";
-import { styled } from "@mui/system";
-import SideMenu from "../../components/SideMenu";
+
 
 interface TodoContextType {
   showAlert: (
@@ -46,9 +46,7 @@ export default function Home() {
     setOpen(false);
   };
 
-  const StyledContainer = styled(Container)({
-    borderRadius: 8,
-  });
+
   return (
     <TodoContext.Provider
       // @ts-ignore
@@ -59,8 +57,7 @@ export default function Home() {
         maxWidth={false}
         disableGutters
       >
-        
-        <StyledContainer maxWidth="sm">
+       
           <TodoForm />
           <Snackbar
             open={open}
@@ -77,7 +74,7 @@ export default function Home() {
             </Alert>
           </Snackbar>
           <TodoList />
-        </StyledContainer>
+        
       </Container>
     </TodoContext.Provider>
   );
