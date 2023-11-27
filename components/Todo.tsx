@@ -14,15 +14,21 @@ import {
 import moment from "moment";
 import React, { useContext } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import { deleteDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import  db  from "../utils/firebase";
 import { TodoContext } from "@/app/TodoContext";
 import TodoInterface from "../interfaces/TodoInterface";
 
 const Todo = ({ userId, timestamp, title, description, status }: TodoInterface) => {
-  // @ts-ignore
-  const { showAlert, todos, setTodos } = useContext(TodoContext);
+  
+  const todoContext = useContext(TodoContext);
+
+  if (!todoContext) {
+     // Context will always be provided this is just for typescript
+    return null;
+  }
+
+  const { showAlert, todos, setTodos } = todoContext;
 
   const deleteTodo = async (
     userId: string,
