@@ -1,3 +1,8 @@
+A simple todo app that allows you to add, delete, update and read todos. Implemented with the Next JS, Typescript and Material UI.
+
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
